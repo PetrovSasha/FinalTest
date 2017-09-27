@@ -15,14 +15,14 @@ import java.util.List;
  */
 public interface TeacherService {
 
-	public Teacher getTeacher(String login);
-	
-	public Teacher createAndUpdateTeacher(Teacher teacher);
-	
-	public void deleteTeacher(Teacher teacher);
+    public Teacher getTeacher(String login);
 
-	public List<Group> findGroupsByTeacher(Teacher teacher);
+    public Teacher createAndUpdateTeacher(Teacher teacher);
+
+    public void deleteTeacher(Teacher teacher);
+
+    public List<Group> findGroupsByTeacher(Teacher teacher);
 
     public boolean isUnique(Teacher teacher);
-	
+
 }
