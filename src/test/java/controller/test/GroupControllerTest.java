@@ -9,6 +9,8 @@ import itstep.pojo.Group;
 import itstep.service.GroupService;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
 import org.itstep.app.App;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -63,6 +66,23 @@ public class GroupControllerTest {
     }
 
     @Test
+    public void testGetGroupsByCourse() {
+        Group group = new Group();
+        group.setGroupName("J16");
+        group.setCourse(2);
+        List<Group> groups = Arrays.asList(group);
+        when(groupService.findAllByCourse(Mockito.anyInt())).thenReturn(groups);
+        RequestEntity<String> requestEntity = null;
+        try {
+            requestEntity = new RequestEntity<String>(HttpMethod.GET, new URI("/group/get-grouplist?course=" + group.getCourse()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ResponseEntity<List<Group>> response = testRestTemplate.exchange(requestEntity, new ParameterizedTypeReference<List<Group>>() {
+        });
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
 
     @BeforeClass
     public static void setUpClass() {
