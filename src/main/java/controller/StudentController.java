@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Controller
 @RequestMapping(value = "/student")
-public class SudentController {
+public class StudentController {
 
     @Autowired
     StudentService studentService;
